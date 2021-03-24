@@ -1,9 +1,9 @@
-FROM node:12.18.3-alpine3.12
+FROM node:15.12.0-alpine3.13
 
 WORKDIR /usr/app
 
 COPY package* ./
 
-RUN yarn install
+RUN npm install
 
 COPY . .

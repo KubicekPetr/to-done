@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "start": "deno run --allow-env src/main.ts",
+        "start": "deno run --allow-env --allow-net src/main.ts",
         "watch": true
     }
 }

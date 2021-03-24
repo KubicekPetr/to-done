@@ -1,6 +1,6 @@
-FROM hayd/alpine-deno:1.2.2
+FROM hayd/deno:alpine-1.8.2
 
-RUN deno install -qAf --unstable https://raw.githubusercontent.com/denosaurs/denon/main/denon.ts
+RUN deno install -qAf --unstable https://deno.land/x/denon/denon.ts
 
 WORKDIR /usr/app
 
@@ -9,4 +9,4 @@ RUN deno cache deps.ts
 
 ADD . .
 
-ENTRYPOINT ["root/deno/bin/denon"]
+ENTRYPOINT ["/usr/local/bin/denon"]

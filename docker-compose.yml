@@ -6,8 +6,8 @@ services:
       context: ./frontend
     container_name: frontend
     command: npm start
-    stdin_open: true
-    tty: true
+    #stdin_open: true
+    #tty: true
     volumes: 
       - ./frontend/src:/usr/app/src
     ports:
@@ -22,7 +22,7 @@ services:
       - PORT=3001
       - MONGO_URL=mongodb://api_mongo:27017
     volumes:
-      - .api/src:/usr/app/src
+      - ./api/src:/usr/app/src
     ports:
       - "3001:3001"
   

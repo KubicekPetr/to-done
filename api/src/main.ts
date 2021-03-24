@@ -1,0 +1,1 @@
+console.log('Deno from docker is running');

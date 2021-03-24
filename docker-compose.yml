@@ -20,6 +20,7 @@ services:
     command: start
     environment:
       - PORT=3001
+      - URL="http://localhost"
       - MONGO_URL=mongodb://api_mongo:27017
     volumes:
       - ./api/src:/usr/app/src

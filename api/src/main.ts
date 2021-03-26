@@ -1,11 +1,15 @@
 import { Application } from "../deps.ts";
 import initRouters from './routers/index.ts';
-
-const app = new Application();
+import MongoDatabase from './helpers/mongodb.ts';
 
 const URL = Deno.env.get("URL") || "http://localhost";
 const PORT = +(Deno.env.get("PORT") || 3001);
+const MONGO_URL = Deno.env.get("MONGO_URL") || "mongodb://localhost:27017";
 
+const mongoDB = new MongoDatabase('todos', MONGO_URL);
+mongoDB.connect();
+
+const app = new Application();
 initRouters(app);
 
 app.addEventListener("listen", () => {

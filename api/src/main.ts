@@ -7,7 +7,12 @@ const PORT = +(Deno.env.get("PORT") || 3001);
 const MONGO_URL = Deno.env.get("MONGO_URL") || "mongodb://localhost:27017";
 
 const mongoDB = new MongoDatabase('todos', MONGO_URL);
-mongoDB.connect();
+await mongoDB.connect();
+
+const result = await mongoDB.getDatabase.collection('todo').insertOne({
+  title: 'MyFirstTodo',
+  description: 'Save my first todo in mongo',
+});
 
 const app = new Application();
 initRouters(app);

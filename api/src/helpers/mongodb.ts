@@ -4,15 +4,15 @@ class MongoDatabase {
     public client: MongoClient;
 
     constructor(private dbName: string, private url: string) {
-        console.log('Connecting to mongo');
+        console.log('Connecting to mongo on ', url);
         // this.dbName = dbName;
         // this.url = url;
         this.client = {} as MongoClient;
     }
 
-    connect() {
+    async connect() {
         this.client = new MongoClient();
-        this.client.connect(this.url);
+        await this.client.connect(this.url);
     }
 
     get getDatabase() {

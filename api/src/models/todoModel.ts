@@ -1,4 +1,4 @@
-import {
+import {  
   isBool,
   isDate,
   isString,
@@ -19,8 +19,8 @@ interface ITodo {
 }
 
 const todoSchema = {
-  name: [lengthBetween(5, 100), isString, required],
-  title: [lengthBetween(5, 100), isString, required],
+  name: [lengthBetween(1, 100), isString, required],
+  title: [lengthBetween(1, 100), isString, required],
   description: [isString, nullable],
   done: [isBool, required],
   color: [isString, nullable],

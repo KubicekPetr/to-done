@@ -1,4 +1,4 @@
-import { Bson, MongoClient } from "../../deps.ts";
+import { MongoClient } from "../../deps.ts";
 
 class MongoDatabase {
     public client: MongoClient;

@@ -1,3 +1,8 @@
+import MongoDatabase from '../helpers/mongodb.ts';
+
+const db = (await MongoDatabase.getInstance()).getDatabase;
+const todoCollection = db.collection('todo');
+
 const get = (context: any) => {
     console.log('Getting a todo');
     try {
@@ -21,6 +26,20 @@ const get = (context: any) => {
     }
 };
 
+const post = async (context: any) => {
+    try {
+        console.log('Adding a todo');
+        const body = context.request.body();
+        const data = await body.value;
+        console.log(data);
+        const insertId = await todoCollection.insertOne(data);
+        context.response.body = JSON.stringify(insertId);
+    } catch (e) {
+        console.log(e);
+    }
+} 
+
 export { 
     get,
+    post,
 };

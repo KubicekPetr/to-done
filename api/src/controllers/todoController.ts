@@ -53,7 +53,6 @@ export const get = async (context: any) => {
       context.response.status = 500;
     }
   }
-  console.log(response)
   context.response.body = JSON.stringify(response);
 };
 
@@ -82,4 +81,29 @@ export const update = async (context: any) => {
 };
 
 export const remove = async (context: any) => {
+  const id: string = context.params.id;
+  console.log(`Deleting the todo with id ${id}`);
+  let response: Object;
+  try {
+    validateMongoId(id);
+    const data = await todoCollection.deleteOne({ _id: new Bson.ObjectId(id) });
+    if (!data) {
+      throw new Error("A todo does not exist, it can't be deleted");
+    }
+    response = {
+      success: true,
+      data,
+    };
+  } catch (error) {
+    response = {
+      success: false,
+      error: error.toString(),
+    };
+    if (error.message.includes("not exist")) {
+      context.response.status = 404;
+    } else {
+      context.response.status = 500;
+    }
+  }
+  context.response.body = JSON.stringify(response);
 };

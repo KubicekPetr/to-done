@@ -13,6 +13,6 @@ router
   .get("/", getAllTodos)
   .post("/", postTodo)
   .put("/", updateTodo)
-  .delete("/", removeTodo);
+  .delete("/:id", removeTodo);
 
 export default router;

@@ -1,7 +1,7 @@
 import { Bson } from '../../deps.ts';
 
 import MongoDatabase from "../helpers/mongodb.ts";
-import { validateTodo } from "../utils/validation.ts";
+import { validateTodo, validateMongoId } from "../utils/validation.ts";
 import { ITodo } from "../models/todoModel.ts";
 
 const db = (await MongoDatabase.getInstance()).getDatabase;
@@ -17,7 +17,6 @@ export const getAll = async (context: any) => {
       length: data.length,
       data,
     };
-    context.response.body = JSON.stringify(response);
   } catch (error) {
     response = {
       success: false,
@@ -25,6 +24,7 @@ export const getAll = async (context: any) => {
       error,
     };
   }
+  context.response.body = JSON.stringify(response);
 };
 
 export const get = async (context: any) => {
@@ -32,18 +32,22 @@ export const get = async (context: any) => {
   console.log(`Getting the todo with id ${id}`);
   let response: Object;
   try {
+    validateMongoId(id);
     const data = await todoCollection.findOne({ _id: new Bson.ObjectId(id) });
+    if (!data) {
+      throw "A todo does not exist"
+    }
     response = {
       success: true,
       data,
     };
-    context.response.body = JSON.stringify(response);
   } catch (error) {
     response = {
       success: false,
       error,
     };
   }
+  context.response.body = JSON.stringify(response);
 };
 
 export const post = async (context: any) => {

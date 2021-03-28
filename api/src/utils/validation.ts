@@ -1,4 +1,4 @@
-import { firstMessages, validate } from "../../deps.ts";
+import { Bson, firstMessages, validate } from "../../deps.ts";
 import { todoSchema } from "../models/todoModel.ts";
 
 const validateTodo = async (todo: Object) => {
@@ -9,4 +9,11 @@ const validateTodo = async (todo: Object) => {
   return true;
 };
 
-export { validateTodo };
+const validateMongoId = (id: string) => {
+  if (!Bson.ObjectId.isValid(id)) {
+    throw "Invalid mongo id";
+  }
+  return true;
+};
+
+export { validateMongoId, validateTodo };

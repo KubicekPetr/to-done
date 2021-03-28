@@ -1,4 +1,4 @@
-import {  
+import {
   isBool,
   isDate,
   isString,

@@ -1,11 +1,14 @@
 import MongoDatabase from "../helpers/mongodb.ts";
-import { validateTodo } from '../utils/validation.ts';
-import { ITodo } from '../models/todoModel.ts';
+import { validateTodo } from "../utils/validation.ts";
+import { ITodo } from "../models/todoModel.ts";
 
 const db = (await MongoDatabase.getInstance()).getDatabase;
 const todoCollection = db.collection("todo");
 
-const get = (context: any) => {
+export const getAll = async (context: any) => {
+};
+
+export const get = (context: any) => {
   console.log("Getting a todo");
   try {
     const todo = {
@@ -28,7 +31,7 @@ const get = (context: any) => {
   }
 };
 
-const post = async (context: any) => {
+export const post = async (context: any) => {
   const body = context.request.body();
   const data = await body.value as ITodo;
   let response: Object;
@@ -38,14 +41,18 @@ const post = async (context: any) => {
     response = {
       success: true,
       data,
-    }
+    };
   } catch (error) {
     response = {
       success: false,
       error,
-    }
+    };
   }
   context.response.body = JSON.stringify(response);
 };
 
-export { get, post };
+export const update = async (context: any) => {
+};
+
+export const remove = async (context: any) => {
+};

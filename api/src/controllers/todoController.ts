@@ -21,8 +21,9 @@ export const getAll = async (context: any) => {
     response = {
       success: false,
       length: 0,
-      error,
+      error: error.toString(),
     };
+    context.response.status = 500;
   }
   context.response.body = JSON.stringify(response);
 };
@@ -35,7 +36,7 @@ export const get = async (context: any) => {
     validateMongoId(id);
     const data = await todoCollection.findOne({ _id: new Bson.ObjectId(id) });
     if (!data) {
-      throw "A todo does not exist"
+      throw new Error("A todo does not exist");
     }
     response = {
       success: true,
@@ -44,9 +45,15 @@ export const get = async (context: any) => {
   } catch (error) {
     response = {
       success: false,
-      error,
+      error: error.toString(),
     };
+    if (error.message.includes("not exist")) {
+      context.response.status = 404;
+    } else {
+      context.response.status = 500;
+    }
   }
+  console.log(response)
   context.response.body = JSON.stringify(response);
 };
 
@@ -64,8 +71,9 @@ export const post = async (context: any) => {
   } catch (error) {
     response = {
       success: false,
-      error,
+      error: error.toString(),
     };
+    context.response.status = 500;
   }
   context.response.body = JSON.stringify(response);
 };

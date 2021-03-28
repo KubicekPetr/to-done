@@ -11,7 +11,7 @@ const validateTodo = async (todo: Object) => {
 
 const validateMongoId = (id: string) => {
   if (!Bson.ObjectId.isValid(id)) {
-    throw "Invalid mongo id";
+    throw new Error("Invalid mongo id");
   }
   return true;
 };

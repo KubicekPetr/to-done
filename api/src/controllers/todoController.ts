@@ -6,6 +6,23 @@ const db = (await MongoDatabase.getInstance()).getDatabase;
 const todoCollection = db.collection("todo");
 
 export const getAll = async (context: any) => {
+  console.log('Getting all todos');
+  let response: Object;
+  try {
+    const data = await todoCollection.find().toArray();
+    response = {
+      success: true,
+      length: data.length,
+      data
+    };
+    context.response.body = JSON.stringify(response);
+  } catch (error) {
+    response = {
+      success: false,
+      length: 0,
+      error
+    };
+  }
 };
 
 export const get = (context: any) => {

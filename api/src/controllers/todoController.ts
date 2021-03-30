@@ -84,11 +84,11 @@ export const update = async (context: any) => {
   let data: ITodoUpdate = await body.value;
   let response: Object;
   try {
-    validateMongoId(id);
-    await validateRequest(data, todoSchemaUpdate);
     if (!data) {
       throw new Error("Empty body");
     }
+    validateMongoId(id);
+    await validateRequest(data, todoSchemaUpdate);
     const result = await todoCollection.updateOne({
       _id: new Bson.ObjectId(id),
     }, {

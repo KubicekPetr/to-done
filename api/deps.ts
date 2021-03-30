@@ -11,3 +11,5 @@ export {
   required,
   validate,
 } from "https://deno.land/x/validasaur/mod.ts";
+
+export type { ValidationRules } from "https://deno.land/x/validasaur/mod.ts";

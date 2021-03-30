@@ -1,8 +1,7 @@
-import { Bson, firstMessages, validate } from "../../deps.ts";
-import { todoSchema } from "../models/todoModel.ts";
+import { Bson, firstMessages, validate, ValidationRules } from "../../deps.ts";
 
-const validateTodo = async (todo: Object) => {
-  const [passes, errors] = await validate(todo, todoSchema);
+const validateRequest = async (obj: Object, schema: ValidationRules) => {
+  const [passes, errors] = await validate(obj, schema);
   if (!passes) {
     throw firstMessages(errors);
   }
@@ -16,4 +15,4 @@ const validateMongoId = (id: string) => {
   return true;
 };
 
-export { validateMongoId, validateTodo };
+export { validateMongoId, validateRequest };

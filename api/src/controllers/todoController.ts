@@ -1,8 +1,8 @@
 import { Bson } from "../../deps.ts";
 
 import MongoDatabase from "../helpers/mongodb.ts";
-import { validateMongoId, validateTodo } from "../utils/validation.ts";
-import { ITodo, ITodoUpdate } from "../models/todoModel.ts";
+import { validateMongoId, validateRequest } from "../utils/validation.ts";
+import { ITodo, ITodoUpdate, todoSchema, todoSchemaUpdate } from "../models/todoModel.ts";
 
 const db = (await MongoDatabase.getInstance()).getDatabase;
 const todoCollection = db.collection("todo");
@@ -61,7 +61,7 @@ export const post = async (context: any) => {
   const data: ITodo = await body.value;
   let response: Object;
   try {
-    await validateTodo(data);
+    await validateRequest(data, todoSchema);
     await todoCollection.insertOne(data);
     response = {
       success: true,
@@ -85,7 +85,7 @@ export const update = async (context: any) => {
   let response: Object;
   try {
     validateMongoId(id);
-    await validateTodo(data);
+    await validateRequest(data, todoSchemaUpdate);
     if (!data) {
       throw new Error("Empty body");
     }

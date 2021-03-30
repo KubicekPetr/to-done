@@ -2,7 +2,12 @@ import { Bson } from "../../deps.ts";
 
 import MongoDatabase from "../helpers/mongodb.ts";
 import { validateMongoId, validateRequest } from "../utils/validation.ts";
-import { ITodo, ITodoUpdate, todoSchema, todoSchemaUpdate } from "../models/todoModel.ts";
+import {
+  ITodo,
+  ITodoUpdate,
+  todoSchema,
+  todoSchemaUpdate,
+} from "../models/todoModel.ts";
 
 const db = (await MongoDatabase.getInstance()).getDatabase;
 const todoCollection = db.collection("todo");
@@ -79,7 +84,7 @@ export const post = async (context: any) => {
 
 export const update = async (context: any) => {
   const id: string = context.params.id;
-  console.log(`Deleting the todo with id ${id}`);
+  console.log(`Updating the todo with id ${id}`);
   const body = context.request.body();
   let data: ITodoUpdate = await body.value;
   let response: Object;
@@ -96,12 +101,12 @@ export const update = async (context: any) => {
     });
     response = {
       success: true,
-      data: result
+      data: result,
     };
   } catch (error) {
     response = {
       success: false,
-      data: error.toString()
+      data: error.toString(),
     };
     context.response.status = 500;
   }

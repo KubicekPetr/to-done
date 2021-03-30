@@ -3,6 +3,7 @@ export { Bson, MongoClient } from "https://deno.land/x/mongo/mod.ts";
 export {
   firstMessages,
   flattenMessages,
+  invalid,
   isBool,
   isDate,
   isString,
@@ -12,4 +13,8 @@ export {
   validate,
 } from "https://deno.land/x/validasaur/mod.ts";
 
-export type { ValidationRules } from "https://deno.land/x/validasaur/mod.ts";
+export type {
+  Rule,
+  ValidationRules,
+  Validity,
+} from "https://deno.land/x/validasaur/mod.ts";

@@ -29,5 +29,27 @@ const todoSchema = {
   updatedAt: [isDate, nullable],
 };
 
-export { todoSchema };
-export type { ITodo };
+interface ITodoUpdate {
+  name?: string;
+  title?: string;
+  description?: string;
+  done?: boolean;
+  color?: string;
+  endAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+const todoSchemaUpdate = {
+  name: [lengthBetween(1, 100), isString],
+  title: [lengthBetween(1, 100), isString],
+  description: [isString, nullable],
+  done: [isBool],
+  color: [isString, nullable],
+  endAt: [isDate, nullable],
+  createdAt: [isDate],
+  updatedAt: [isDate, nullable],
+};
+
+export { todoSchema, todoSchemaUpdate };
+export type { ITodo, ITodoUpdate };

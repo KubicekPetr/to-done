@@ -10,7 +10,7 @@ import {
 } from "../models/todoModel.ts";
 
 const db = (await MongoDatabase.getInstance()).getDatabase;
-const todoCollection = db.collection("todo");
+const todoCollection = db.collection<ITodo>("todo");
 
 export const getAll = async (context: any) => {
   console.log("Getting all todos");

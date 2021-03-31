@@ -1,6 +1,3 @@
-import { Bson } from "../../deps.ts";
-
-import MongoDatabase from "../helpers/mongodb.ts";
 import { validateMongoId, validateRequest } from "../utils/validation.ts";
 import {
   ITodo,
@@ -8,15 +5,16 @@ import {
   todoSchema,
   todoSchemaUpdate,
 } from "../models/todoModel.ts";
+import { MongoRepository } from "../repository/MongoRepository.ts";
 
-const db = (await MongoDatabase.getInstance()).getDatabase;
-const todoCollection = db.collection<ITodo>("todo");
+// init mongo repository over the todoCollection CRUD ops
+const todoCollection = new MongoRepository();
 
 export const getAll = async (context: any) => {
   console.log("Getting all todos");
   let response: Object;
   try {
-    const data = await todoCollection.find().toArray();
+    const data = await todoCollection.findMany();
     response = {
       success: true,
       length: data.length,
@@ -39,7 +37,7 @@ export const get = async (context: any) => {
   let response: Object;
   try {
     validateMongoId(id);
-    const data = await todoCollection.findOne({ _id: new Bson.ObjectId(id) });
+    const data = await todoCollection.findOne(id);
     if (!data) {
       throw new Error("A todo does not exist");
     }
@@ -94,11 +92,7 @@ export const update = async (context: any) => {
     }
     validateMongoId(id);
     await validateRequest(data, todoSchemaUpdate);
-    const result = await todoCollection.updateOne({
-      _id: new Bson.ObjectId(id),
-    }, {
-      $set: data,
-    });
+    const result = await todoCollection.updateOne(id, data);
     response = {
       success: true,
       data: result,
@@ -119,7 +113,7 @@ export const remove = async (context: any) => {
   let response: Object;
   try {
     validateMongoId(id);
-    const data = await todoCollection.deleteOne({ _id: new Bson.ObjectId(id) });
+    const data = await todoCollection.deleteOne(id);
     if (!data) {
       throw new Error("A todo does not exist, it can't be deleted");
     }

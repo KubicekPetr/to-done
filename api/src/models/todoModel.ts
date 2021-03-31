@@ -7,7 +7,7 @@ import {
   required,
 } from "../../deps.ts";
 
-import { optionalLengthBetween } from './rules/optionalLengthBetween.ts';
+import { optionalLengthBetween } from "./rules/optionalLengthBetween.ts";
 
 interface ITodo {
   name: string;

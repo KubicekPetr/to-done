@@ -28,7 +28,7 @@ export const getAll = async (context: any) => {
     };
     context.response.status = 500;
   }
-  context.response.body = JSON.stringify(response);
+  context.response.body = response;
 };
 
 export const get = async (context: any) => {
@@ -56,7 +56,7 @@ export const get = async (context: any) => {
       context.response.status = 500;
     }
   }
-  context.response.body = JSON.stringify(response);
+  context.response.body = response;
 };
 
 export const post = async (context: any) => {
@@ -77,7 +77,7 @@ export const post = async (context: any) => {
     };
     context.response.status = 500;
   }
-  context.response.body = JSON.stringify(response);
+  context.response.body = response;
 };
 
 export const update = async (context: any) => {
@@ -104,7 +104,7 @@ export const update = async (context: any) => {
     };
     context.response.status = 500;
   }
-  context.response.body = JSON.stringify(response);
+  context.response.body = response;
 };
 
 export const remove = async (context: any) => {
@@ -132,5 +132,5 @@ export const remove = async (context: any) => {
       context.response.status = 500;
     }
   }
-  context.response.body = JSON.stringify(response);
+  context.response.body = response;
 };

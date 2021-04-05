@@ -7,7 +7,7 @@ import {
   required,
 } from "../../deps.ts";
 
-import { optionalLengthBetween } from "./rules/optionalLengthBetween.ts";
+import { optionalStringLength } from "./rules/optionalStringLength.ts";
 
 interface ITodo {
   name: string;
@@ -43,8 +43,8 @@ interface ITodoUpdate {
 }
 
 const todoSchemaUpdate = {
-  name: [optionalLengthBetween(3, 100)],
-  title: [optionalLengthBetween(3, 100)],
+  name: [optionalStringLength(3, 100)],
+  title: [optionalStringLength(3, 100)],
   description: [isString, nullable],
   done: [isBool],
   color: [isString, nullable],

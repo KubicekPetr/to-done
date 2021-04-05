@@ -14,6 +14,9 @@ export {
 } from "https://deno.land/x/validasaur/mod.ts";
 
 export type {
+  RouterContext,
+} from "https://deno.land/x/oak/mod.ts";
+export type {
   Rule,
   ValidationRules,
   Validity,

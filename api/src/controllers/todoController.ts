@@ -1,3 +1,4 @@
+import type { RouterContext } from "../../deps.ts";
 import { validateMongoId, validateRequest } from "../utils/validation.ts";
 import {
   ITodo,
@@ -10,7 +11,7 @@ import { MongoRepository } from "../repository/MongoRepository.ts";
 // init mongo repository over the todoCollection CRUD ops
 const todoCollection = new MongoRepository();
 
-export const getAll = async (context: any) => {
+export const getAll = async (context: RouterContext) => {
   console.log("Getting all todos");
   let response: Object;
   try {
@@ -31,8 +32,8 @@ export const getAll = async (context: any) => {
   context.response.body = response;
 };
 
-export const get = async (context: any) => {
-  const id: string = context.params.id;
+export const get = async (context: RouterContext) => {
+  const id = context.params.id!;
   console.log(`Getting the todo with id ${id}`);
   let response: Object;
   try {
@@ -59,7 +60,7 @@ export const get = async (context: any) => {
   context.response.body = response;
 };
 
-export const post = async (context: any) => {
+export const post = async (context: RouterContext) => {
   const body = context.request.body();
   const data: ITodo = await body.value;
   let response: Object;
@@ -80,8 +81,8 @@ export const post = async (context: any) => {
   context.response.body = response;
 };
 
-export const update = async (context: any) => {
-  const id: string = context.params.id;
+export const update = async (context: RouterContext) => {
+  const id: string = context.params.id!;
   console.log(`Updating the todo with id ${id}`);
   const body = context.request.body();
   let data: ITodoUpdate = await body.value;
@@ -107,8 +108,8 @@ export const update = async (context: any) => {
   context.response.body = response;
 };
 
-export const remove = async (context: any) => {
-  const id: string = context.params.id;
+export const remove = async (context: RouterContext) => {
+  const id: string = context.params.id!;
   console.log(`Deleting the todo with id ${id}`);
   let response: Object;
   try {

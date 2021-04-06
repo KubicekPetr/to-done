@@ -8,14 +8,14 @@ import {
 } from "../models/todoModel.ts";
 import { MongoRepository } from "../repository/MongoRepository.ts";
 
-// init mongo repository over the todoCollection CRUD ops
-const todoCollection = new MongoRepository();
+// init mongo repository over the mongoRepository CRUD ops
+const mongoRepository = new MongoRepository();
 
 export const getAll = async (context: RouterContext) => {
   console.log("Getting all todos");
   let response: Object;
   try {
-    const data = await todoCollection.findMany();
+    const data = await mongoRepository.findMany();
     response = {
       success: true,
       length: data.length,
@@ -38,7 +38,7 @@ export const get = async (context: RouterContext) => {
   let response: Object;
   try {
     validateMongoId(id);
-    const data = await todoCollection.findOne(id);
+    const data = await mongoRepository.findOne(id);
     if (!data) {
       throw new Error("A todo does not exist");
     }
@@ -66,7 +66,7 @@ export const post = async (context: RouterContext) => {
   let response: Object;
   try {
     await validateRequest(data, todoSchema);
-    await todoCollection.insertOne(data);
+    await mongoRepository.insertOne(data);
     response = {
       success: true,
       data,
@@ -93,7 +93,7 @@ export const update = async (context: RouterContext) => {
     }
     validateMongoId(id);
     await validateRequest(data, todoSchemaUpdate);
-    const result = await todoCollection.updateOne(id, data);
+    const result = await mongoRepository.updateOne(id, data);
     response = {
       success: true,
       data: result,
@@ -114,7 +114,7 @@ export const remove = async (context: RouterContext) => {
   let response: Object;
   try {
     validateMongoId(id);
-    const data = await todoCollection.deleteOne(id);
+    const data = await mongoRepository.deleteOne(id);
     if (!data) {
       throw new Error("A todo does not exist, it can't be deleted");
     }

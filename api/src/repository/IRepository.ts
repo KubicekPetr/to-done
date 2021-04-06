@@ -9,6 +9,8 @@ export interface IMongoUpdateResult {
 }
 
 export interface IMongoRepository {
+  getTodosOrders(): Promise<any>;
+  updateTodosOrder(todosOrder: any): Promise<any>;
   findMany(): Promise<ITodo[]>;
   findOne(id: string): Promise<ITodo | undefined>;
   insertOne(todo: ITodo): Promise<Bson.Document>;

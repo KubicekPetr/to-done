@@ -5,8 +5,17 @@ import MongoDatabase from "../helpers/mongodb.ts";
 
 const db = (await MongoDatabase.getInstance()).getDatabase;
 const todoCollection = db.collection<ITodo>("todo");
+const todosOrderCollection = db.collection("todosOrder");
 
 export class MongoRepository implements IMongoRepository {
+  async getTodosOrders() {
+    return await todosOrderCollection.find().toArray();
+  }
+
+  async updateTodosOrder(todosOrder: any) {
+    return await todosOrderCollection.insertOne(todosOrder);
+  }
+
   async findMany(): Promise<ITodo[]> {
     return await todoCollection.find().toArray();
   }

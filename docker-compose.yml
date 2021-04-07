@@ -23,6 +23,7 @@ services:
       - URL=http://localhost
       - MONGO_URL=mongodb://api_mongo:27017
       - DB_NAME=todos
+      - API_VERSION=v1
     volumes:
       - ./api/src:/usr/app/src
     ports:

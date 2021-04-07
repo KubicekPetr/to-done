@@ -7,12 +7,20 @@ import {
   update as updateTodo,
 } from "../controllers/todoController.ts";
 
-const router = new Router();
-router
-  .get("/:id", getTodo)
-  .get("/", getAllTodos)
-  .post("/", postTodo)
-  .put("/:id", updateTodo)
-  .delete("/:id", removeTodo);
+const routerWithUrl = (url: string) => {
+  const routerUrl = `${url}/todo`;
+  const routerOptions = {
+    prefix: routerUrl,
+  };
+  const router = new Router(routerOptions);
+  router
+    .get("/:id", getTodo)
+    .get("/", getAllTodos)
+    .post("/", postTodo)
+    .put("/:id", updateTodo)
+    .delete("/:id", removeTodo);
+  
+  return router;
+}
 
-export default router;
+export default routerWithUrl;

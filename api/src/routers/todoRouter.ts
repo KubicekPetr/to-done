@@ -1,4 +1,5 @@
 import { Router } from "../../deps.ts";
+import type { RouterOptions } from '../../deps.ts';
 import {
   get as getTodo,
   getAll as getAllTodos,
@@ -9,7 +10,7 @@ import {
 
 const routerWithUrl = (url: string) => {
   const routerUrl = `${url}/todo`;
-  const routerOptions = {
+  const routerOptions: RouterOptions  = {
     prefix: routerUrl,
   };
   const router = new Router(routerOptions);

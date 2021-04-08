@@ -1,12 +1,21 @@
 import { Router } from "../../deps.ts";
+import type { RouterOptions } from '../../deps.ts';
 import {
   get as getOrder,
   update as updateOrder,
 } from "../controllers/todoOrderController.ts";
 
-const router = new Router();
-router
-  .get("/", getOrder)
-  .put("/:id", updateOrder)
+  const routerWithUrl = (url: string) => {
+    const routerUrl = `${url}/todo-order`;
+    const routerOptions: RouterOptions = {
+      prefix: routerUrl,
+    };
+    const router = new Router(routerOptions);
+    router
+      .get("/", getOrder)
+      .put("/:id", updateOrder)
+    
+    return router;
+  }
 
-export default router;
+export default routerWithUrl;

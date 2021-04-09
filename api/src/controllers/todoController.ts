@@ -74,7 +74,7 @@ export const post = async (context: RouterContext) => {
   } catch (error) {
     response = {
       success: false,
-      error: error.toString(),
+      error: error,
     };
     context.response.status = 500;
   }

@@ -13,6 +13,7 @@ export class MongoRepository implements IMongoRepository {
   }
 
   async updateTodosOrder(todosOrder: any) {
+    await todosOrderCollection.deleteMany({}); // to be deleted when multiple users feature is introduced
     return await todosOrderCollection.insertOne(todosOrder);
   }
 

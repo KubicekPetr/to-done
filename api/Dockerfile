@@ -5,7 +5,7 @@ RUN deno install -qAf --unstable https://deno.land/x/denon/denon.ts
 WORKDIR /usr/app
 
 COPY deps.ts .
-RUN deno cache deps.ts
+RUN deno cache --unstable deps.ts
 
 ADD . .
 

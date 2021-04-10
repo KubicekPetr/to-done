@@ -8,9 +8,11 @@ async function onSignal(signal: number, callback: () => void) {
   }
 }
 
-onSignal(Deno.Signal.SIGINT, () => { console.log("SIGINT") });
-onSignal(Deno.Signal.SIGTERM, () => { console.log("SIGTERM") });
-onSignal(Deno.Signal.SIGQUIT, () => { console.log("SIGQUIT") });
+const abortController  = new AbortController();
+const signal: AbortSignal = abortController.signal;
+onSignal(Deno.Signal.SIGINT, () => { abortController.abort(); });
+onSignal(Deno.Signal.SIGTERM, () => { abortController.abort(); });
+onSignal(Deno.Signal.SIGQUIT, () => { abortController.abort(); });
 
 
 const URL = Deno.env.get("URL") || "http://localhost";
@@ -26,4 +28,4 @@ app.addEventListener("listen", () => {
   console.log(`Server is listening at ${URL}:${PORT}`);
 });
 
-await app.listen({ port: PORT });
+await app.listen({ port: PORT, signal });

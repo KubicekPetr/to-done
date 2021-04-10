@@ -1,23 +1,13 @@
 import { Application } from "../deps.ts";
 import initRouters from "./routers/index.ts";
 import notFound from "./middlewares/notFound.ts";
-
-async function onSignal(signal: number, callback: () => void) {
-  for await (const _ of Deno.signal(signal)) {
-    callback();
-  }
-}
-
-const abortController  = new AbortController();
-const signal: AbortSignal = abortController.signal;
-onSignal(Deno.Signal.SIGINT, () => { abortController.abort(); });
-onSignal(Deno.Signal.SIGTERM, () => { abortController.abort(); });
-onSignal(Deno.Signal.SIGQUIT, () => { abortController.abort(); });
+import { signal, startListeningForTerminationSignal } from './utils/signalManager.ts';
 
 
 const URL = Deno.env.get("URL") || "http://localhost";
 const PORT = +(Deno.env.get("PORT") || 3001);
 
+startListeningForTerminationSignal();
 const app = new Application();
 
 // middlewares

@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
   frontend:
@@ -28,6 +28,7 @@ services:
       - ./api/src:/usr/app/src
     ports:
       - "3001:3001"
+    init: true
   
   api_mongo:
     image: mongo:latest

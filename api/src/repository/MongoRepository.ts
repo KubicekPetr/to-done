@@ -9,7 +9,49 @@ const todosOrderCollection = db.collection("todosOrder");
 
 export class MongoRepository implements IMongoRepository {
   async getTodosOrders() {
-    return await todosOrderCollection.find().toArray();
+    return await todosOrderCollection.aggregate(
+      [
+        {
+          '$project': {
+            'results': {
+              '$reduce': {
+                'input': '$data', 
+                'initialValue': [], 
+                'in': {
+                  'collapsed': {
+                    '$concatArrays': [
+                      '$$value.collapsed', '$$this'
+                    ]
+                  }, 
+                  'firstValues': {
+                    '$concatArrays': [
+                      '$$value.firstValues', {
+                        '$slice': [
+                          '$$this', 1
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }, {
+          '$lookup': {
+            'from': 'todo', 
+            'localField': 'results.collapsed._id', 
+            'foreignField': '_id', 
+            'as': 'data'
+          }
+        }, {
+          '$project': {
+            'results': {
+              'collapsed': 0
+            }
+          }
+        }
+      ]
+    );
   }
 
   async updateTodosOrder(todosOrder: any) {

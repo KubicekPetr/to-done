@@ -15,6 +15,8 @@ const routerWithUrl = (url: string) => {
   };
   const router = new Router(routerOptions);
   router
+    .options("/")
+    .options("/:id")
     .get("/:id", getTodo)
     .get("/", getAllTodos)
     .post("/", postTodo)

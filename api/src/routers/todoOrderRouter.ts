@@ -12,6 +12,7 @@ import {
     };
     const router = new Router(routerOptions);
     router
+      .options("/")
       .get("/", getOrder)
       .put("/:id", updateOrder)
     

@@ -12,6 +12,7 @@ export {
   required,
   validate,
 } from "https://deno.land/x/validasaur/mod.ts";
+export { oakCors } from "https://deno.land/x/cors/mod.ts";
 
 export type {
   RouterContext,

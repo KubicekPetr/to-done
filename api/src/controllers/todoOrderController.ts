@@ -10,11 +10,12 @@ export const get = async (context: RouterContext) => {
   console.log("Getting order for todos");
   let response: Object;
   try {
-    const data = await mongoRepository.getTodosOrders();
+    const data: any = await (await mongoRepository.getTodosOrders()).toArray();
     response = {
       success: true,
-      length: data.length,
-      data,
+      numberOfGroups: data[0].results.firstValues.length,
+      numberOfTodos: data[0].results.data.length,
+      data: data[0].results,
     };
   } catch (error) {
     response = {

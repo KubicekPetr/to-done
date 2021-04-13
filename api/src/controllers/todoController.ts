@@ -66,7 +66,8 @@ export const post = async (context: RouterContext) => {
   let response: Object;
   try {
     await validateRequest(data, todoSchema);
-    await mongoRepository.insertOne(data);
+    const id = await mongoRepository.insertOne(data);
+    data._id = id;
     response = {
       success: true,
       data,

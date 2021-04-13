@@ -5,11 +5,13 @@ import {
   lengthBetween,
   nullable,
   required,
+  Bson,
 } from "../../deps.ts";
 
 import { optionalStringLength } from "./rules/optionalStringLength.ts";
 
 interface ITodo {
+  _id: Bson.Document;
   name: string;
   title: string;
   description?: string;

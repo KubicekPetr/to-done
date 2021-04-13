@@ -41,7 +41,7 @@ export class MongoRepository implements IMongoRepository {
             'from': 'todo', 
             'localField': 'results.collapsed._id', 
             'foreignField': '_id', 
-            'as': 'data'
+            'as': 'results.data'
           }
         }, {
           '$project': {

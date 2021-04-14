@@ -4,6 +4,7 @@ function App() {
   return (
     <div>
       React from docker is running
+      <span uk-icon="icon: check"></span>
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 
-function TodoCard() {
+function TodoCard({name}) {
     return (
         <div className="uk-margin">
             <div className="uk-card uk-card-default uk-card-body uk-card-small">
-                Hi i'm a card
+                {name}
             <div className="uk-align-right">
                     <div className="uk-iconnav">
                         <li className="#!" uk-icon="icon: file-edit"></li>

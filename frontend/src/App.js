@@ -9,20 +9,25 @@ function App() {
     <div className="uk-child-width-1-3@s" data-uk-grid>
       <div>
         <h4 className="uk-text-center">Group 1</h4>
-        <TodoCard />
+        <div id="group1" data-uk-sortable="group: sortable-group">
+          <TodoCard />
+        </div>
       </div>
       <div>
         <h4 className="uk-text-center">Group 2</h4>
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
+        <div id="group2" data-uk-sortable="group: sortable-group">
+          <TodoCard />
+          <TodoCard />
+          <TodoCard />
+          <TodoCard />
+          <TodoCard /> 
+        </div>
       </div>
       <div>
         <h4 className="uk-text-center">Group 3</h4>
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
+        <div id="group3" data-uk-sortable="group: sortable-group">
+          <TodoCard />
+        </div>
       </div>
     </div>
   </>);

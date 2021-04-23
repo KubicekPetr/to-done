@@ -8,7 +8,7 @@ function FloatingAction() {
             bottom: 23,
             zIndex: 999,
         }}>
-            <a className="uk-icon-button" href="#!" uk-icon="plus" style={{
+            <a className="uk-icon-button" data-uk-toggle="target: #modal-todo" uk-icon="plus" style={{
                 width: 56,
                 height: 56,
                 color: "white",
